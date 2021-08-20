@@ -10972,7 +10972,79 @@ var bookTour = /*#__PURE__*/function () {
 }();
 
 exports.bookTour = bookTour;
-},{"axios":"../../node_modules/axios/index.js"}],"index.js":[function(require,module,exports) {
+},{"axios":"../../node_modules/axios/index.js"}],"signUp.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.signUp = void 0;
+
+require("regenerator-runtime/runtime");
+
+var _alert = require("./alert");
+
+var _axios = _interopRequireDefault(require("axios"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var signUp = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(name, email, password, passwordConfirm) {
+    var res;
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.prev = 0;
+            _context.next = 3;
+            return (0, _axios.default)({
+              method: 'post',
+              url: '/api/v1/users/signup',
+              data: {
+                name: name,
+                email: email,
+                password: password,
+                passwordConfirm: passwordConfirm
+              }
+            });
+
+          case 3:
+            res = _context.sent;
+
+            if (res.data.status == 'success') {
+              (0, _alert.showAlert)('success', 'Sign up successfully!');
+              window.setTimeout(function () {
+                location.assign('/');
+              }, 500);
+            }
+
+            _context.next = 10;
+            break;
+
+          case 7:
+            _context.prev = 7;
+            _context.t0 = _context["catch"](0);
+            (0, _alert.showAlert)('error', _context.t0.response.data.message);
+
+          case 10:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[0, 7]]);
+  }));
+
+  return function signUp(_x, _x2, _x3, _x4) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+exports.signUp = signUp;
+},{"regenerator-runtime/runtime":"../../node_modules/regenerator-runtime/runtime.js","./alert":"alert.js","axios":"../../node_modules/axios/index.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 require("regenerator-runtime/runtime");
@@ -10985,6 +11057,8 @@ var _updateSetting = require("./updateSetting.js");
 
 var _stripe = require("./stripe.js");
 
+var _signUp = require("./signUp");
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -10992,6 +11066,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 // DOM ELEMENTS
 var mapBox = document.getElementById('map');
 var loginForm = document.querySelector('.form-login');
+var signUpForm = document.querySelector('.form-signup');
 var logoutBtn = document.querySelector('.nav-el--logout');
 var userDataForm = document.querySelector('.form-user-data');
 var userPasswordUpdateForm = document.querySelector('.form-user-settings');
@@ -11026,6 +11101,38 @@ if (loginForm) {
 
     return function (_x) {
       return _ref.apply(this, arguments);
+    };
+  }());
+}
+
+if (signUpForm) {
+  signUpForm.addEventListener('submit', /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(e) {
+      var email, name, password, passwordConfirm;
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              e.preventDefault();
+              console.log(e.target);
+              email = document.getElementById('email').value;
+              name = document.getElementById('name').value;
+              password = document.getElementById('password').value;
+              passwordConfirm = document.getElementById('passwordConfirm').value;
+              console.log(email, password, passwordConfirm);
+              _context2.next = 9;
+              return (0, _signUp.signUp)(name, email, password, passwordConfirm);
+
+            case 9:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function (_x2) {
+      return _ref2.apply(this, arguments);
     };
   }());
 }
@@ -11066,7 +11173,7 @@ if (bookBtn) {
     (0, _stripe.bookTour)(tourId);
   });
 }
-},{"regenerator-runtime/runtime":"../../node_modules/regenerator-runtime/runtime.js","./login.js":"login.js","./mapbox.js":"mapbox.js","./updateSetting.js":"updateSetting.js","./stripe.js":"stripe.js"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"regenerator-runtime/runtime":"../../node_modules/regenerator-runtime/runtime.js","./login.js":"login.js","./mapbox.js":"mapbox.js","./updateSetting.js":"updateSetting.js","./stripe.js":"stripe.js","./signUp":"signUp.js"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -11094,7 +11201,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56366" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61084" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
