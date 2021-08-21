@@ -1,3 +1,3 @@
 # Natours Application
 
-Built for study: nodejs,express,mongoDB,mongoose
+Built for studying: nodejs,express,mongoDB,mongoose
